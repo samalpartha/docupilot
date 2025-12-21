@@ -1,18 +1,12 @@
 
+from pathlib import Path
 from .base import BaseAgent
 
 class VerifierAgent(BaseAgent):
     def __init__(self):
         super().__init__(name="VerifierAgent", role="Quality Assurance Auditor")
-        self.set_system_prompt("""You are the Verifier Agent.
-Your job is to check the generated Report against the original Evidence.
-1. Verify that every [block_id: ...] citation exists in the evidence.
-2. Verify that the text in the report accurately reflects the text in the cited block.
-3. If a claim is unsupported, flag it.
+        prompt_path = Path(__file__).parent / 'prompts' / 'verifier.txt'
+        self.set_system_prompt(prompt_path.read_text())
 
-Output a validation report.""")
-
-    def verify(self, report_text, evidence_metadata):
-        # In a real full impl, we'd pass the actual evidence text again or a subset.
-        # For this hackathon scope, we'll ask it to verify the logic/structure.
-        return self.run(f"Verify the following report for structural integrity and citation formatting:\n\n{report_text}")
+    def verify(self, report_text, evidence_text):
+        return self.run(f"Audit the following report against the provided evidence:\n\nEVIDENCE:\n{evidence_text}\n\nREPORT TO AUDIT:\n{report_text}")

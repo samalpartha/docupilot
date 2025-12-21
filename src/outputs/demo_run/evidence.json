@@ -1,0 +1,38 @@
+[
+  {
+    "block_id": "p1_b0",
+    "page": 1,
+    "bbox": [],
+    "text": "UNITED STATES DISTRICT COURT SOUTHERN DISTRICT OF NEW YORK"
+  },
+  {
+    "block_id": "p1_b1",
+    "page": 1,
+    "bbox": [],
+    "text": "ACME CORP., Plaintiff, v. TECHVENDOR INC., Defendant. Civil Action No. 24-CV-12345 (JSD)"
+  },
+  {
+    "block_id": "p1_b2",
+    "page": 1,
+    "bbox": [],
+    "text": "ORDER GRANTING MOTION FOR SUMMARY JUDGMENT"
+  },
+  {
+    "block_id": "p1_b3",
+    "page": 1,
+    "bbox": [],
+    "text": "The Court finds that on January 1, 2024, Defendant failed to deliver the software modules as required by the Master Services Agreement (MSA), Section 4.2."
+  },
+  {
+    "block_id": "p1_b4",
+    "page": 1,
+    "bbox": [],
+    "text": "Under New York Law, a material breach of a time-is-of-the-essence clause entitles the non-breaching party to immediate termination."
+  },
+  {
+    "block_id": "p1_b5",
+    "page": 1,
+    "bbox": [],
+    "text": "It is hereby ORDERED AND ADJUDGED that: A. Plaintiff's Motion for Summary Judgment is GRANTED. B. Defendant shall pay damages in the amount of $450,000 within 30 days. C. Failure to comply may result in further sanctions."
+  }
+]

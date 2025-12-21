@@ -1,18 +1,26 @@
 
+from pathlib import Path
 from .base import BaseAgent
+
+import json
+from loguru import logger
 
 class RiskAgent(BaseAgent):
     def __init__(self):
         super().__init__(name="RiskAgent", role="Compliance Risk Officer")
-        self.set_system_prompt("""You are the Risk Agent for DocuPilot.
-Your goal is to identify risks in the document analysis provided.
-Focus on: Liability caps, indeterminate terms, missing SLAs, auto-renewals without notice, and unbalanced indemnification.
-
-Output Format (CSV):
-Risk ID,Risk Description,Severity (1-5),Evidence Block IDs,Mitigation
-R001,Description,5,"id1, id2",Suggestion
-
-Strictly follow CSV format.""")
+        prompt_path = Path(__file__).parent / 'prompts' / 'risk.txt'
+        self.set_system_prompt(prompt_path.read_text())
 
     def assess_risk(self, analysis_text):
-        return self.run(f"Based on this analysis, generate a risk register:\n\n{analysis_text}")
+        response = self.run(f"Based on this analysis, generate a risk register:\n\n{analysis_text}")
+        try:
+            # Clean potential markdown
+            cleaned = response.strip()
+            if cleaned.startswith("```json"):
+                cleaned = cleaned[7:]
+            if cleaned.endswith("```"):
+                cleaned = cleaned[:-3]
+            return json.loads(cleaned.strip())
+        except Exception as e:
+            logger.error(f"Failed to parse Risk JSON: {e}")
+            return []
