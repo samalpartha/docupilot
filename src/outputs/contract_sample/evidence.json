@@ -1,0 +1,33 @@
+{
+  "blocks": [
+    {
+      "id": "p1_b0",
+      "page": 1,
+      "text": "VENDOR SERVICES AGREEMENT",
+      "type": "header"
+    },
+    {
+      "id": "p1_b1",
+      "page": 1,
+      "text": "This Agreement is made on January 1, 2025 between Acme Corp and TechVendor Inc.",
+      "type": "text"
+    },
+    {
+      "id": "p2_b1",
+      "page": 2,
+      "text": "Liability is limited to $50,000. Service Level Agreement (SLA) is not defined in this main body.",
+      "type": "text"
+    },
+    {
+      "id": "p3_b1",
+      "page": 3,
+      "text": "This agreement shall auto-renew for successive 1-year terms unless terminated.",
+      "type": "text"
+    }
+  ],
+  "metadata": {
+    "total_blocks": 4,
+    "total_pages": 3,
+    "source_validation": "PaddleOCR-VL"
+  }
+}

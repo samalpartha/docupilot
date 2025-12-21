@@ -1,54 +1,60 @@
 #!/usr/bin/env python3
-"""DocuPilot - Multi-agent document analysis system"""
-
 import os
+import sys
 import json
-from pathlib import Path
 import click
+from pathlib import Path
 from loguru import logger
 from dotenv import load_dotenv
+
+# Ensure we can import from src
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from src.ocr import extract_document
+from src.normalize import create_evidence_store
+from src.agents.orchestrator import run_pipeline
 
 load_dotenv()
 
 @click.command()
 @click.option('--pdf', required=True, type=click.Path(exists=True), help='Path to PDF file')
-@click.option('--output', default='outputs', help='Output directory')
+@click.option('--output', default='src/outputs', help='Output directory')
 def main(pdf, output):
-    """Process PDF through DocuPilot multi-agent system."""
+    """DocuPilot: Multi-Agent Contract Review System"""
     
-    logger.info(f"🚀 DocuPilot starting: {pdf}")
+    print(r"""
+    ____                  ____  _ __      __ 
+   /           _  __     / __ \(_) /___  / /_
+  / /   / __ \/ / / /____/ /_/ / / / __ \/ __/
+ / /___/ /_/ / /_/ /____/ ____/ / / /_/ / /_  
+/_____/\____/\__,_/    /_/   /_/_/\____/\__/  
+                                              
+    """)
+    logger.info(f"Stats: Processing {pdf}")
     
-    try:
-        # Step 1: OCR extraction
-        logger.info("📄 Step 1: Extracting with PaddleOCR...")
-        from ocr import extract_document
-        blocks = extract_document(pdf)
-        logger.success(f"Extracted {len(blocks)} text blocks")
-        
-        # Step 2: Normalize
-        logger.info("🔄 Step 2: Normalizing evidence...")
-        from normalize import create_evidence_store
-        evidence = create_evidence_store(blocks)
-        
-        # Step 3: Run multi-agent pipeline
-        logger.info("🤖 Step 3: Running ERNIE agents...")
-        from agents.orchestrator import run_pipeline
-        results = run_pipeline(evidence)
-        
-        # Step 4: Save outputs
-        output_dir = Path(output) / Path(pdf).stem
-        output_dir.mkdir(parents=True, exist_ok=True)
-        
-        (output_dir / 'evidence.json').write_text(json.dumps(evidence, indent=2))
-        (output_dir / 'report.md').write_text(results['report'])
-        (output_dir / 'risk_register.csv').write_text(results['risks'])
-        
-        logger.success(f"✅ Complete! Outputs in: {output_dir}")
-        logger.info(f"📁 Files: evidence.json, report.md, risk_register.csv")
-        
-    except Exception as e:
-        logger.error(f"❌ Error: {e}")
-        raise
+    # 1. Perception Layer
+    blocks = extract_document(pdf)
+    if not blocks:
+        logger.error("No blocks extracted. Exiting.")
+        return
+
+    # 2. Normalization Layer
+    evidence = create_evidence_store(blocks)
+    logger.info(f"Evidence prepared: {evidence['metadata']['total_blocks']} blocks")
+    
+    # 3. Agent Layer
+    results = run_pipeline(evidence)
+    
+    # 4. Storage Layer
+    output_path = Path(output) / Path(pdf).stem
+    output_path.mkdir(parents=True, exist_ok=True)
+    
+    (output_path / 'evidence.json').write_text(json.dumps(evidence, indent=2))
+    (output_path / 'report.md').write_text(results['report'])
+    (output_path / 'risk_register.csv').write_text(results['risks'])
+    (output_path / 'run.log').write_text(f"Processed {pdf}\nStats: {evidence['metadata']}")
+    
+    logger.success(f"✨ Analysis Complete! Results in: {output_path}")
 
 if __name__ == '__main__':
     main()

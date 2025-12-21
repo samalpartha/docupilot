@@ -1,0 +1,39 @@
+{
+  "blocks": [
+    {
+      "id": "p1_b0",
+      "page": 1,
+      "text": "GLOBAL TRAVEL & EXPENSE POLICY v2.0",
+      "type": "header"
+    },
+    {
+      "id": "p1_b1",
+      "page": 1,
+      "text": "Effective Date: June 1, 2024. Applies to all Grade 4+ employees.",
+      "type": "text"
+    },
+    {
+      "id": "p2_b1",
+      "page": 2,
+      "text": "Section 4: Air Travel",
+      "type": "header"
+    },
+    {
+      "id": "p2_b2",
+      "page": 2,
+      "text": "Employees may book Business Class if the flight duration exceeds 4 hours. No pre-approval required for flights under $3,000.",
+      "type": "text"
+    },
+    {
+      "id": "p3_b1",
+      "page": 3,
+      "text": "Alcoholic beverages are reimbursable up to $100 per dinner.",
+      "type": "text"
+    }
+  ],
+  "metadata": {
+    "total_blocks": 5,
+    "total_pages": 3,
+    "source_validation": "PaddleOCR-VL"
+  }
+}

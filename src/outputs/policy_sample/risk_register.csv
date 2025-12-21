@@ -1,0 +1,6 @@
+Risk ID,Risk Description,Severity (1-5),Evidence Block IDs,Mitigation
+R001,No liability caps specified for reimbursement claims,4,"p1_b0,p2_b2,p3_b1",Include clear liability caps in the policy to limit financial exposure for the company.
+R002,Indeterminate terms regarding reimbursement for expenses not explicitly listed,3,"p1_b0,p2_b2,p3_b1",Define and list all reimbursable expenses explicitly to avoid ambiguity.
+R003,Missing SLAs for reimbursement processing times,3,"p1_b0,p2_b2,p3_b1",Set specific service level agreements (SLAs) for processing reimbursement claims to ensure timely payments.
+R004,No mention of auto-renewals or notice requirements for policy terms,2,"p1_b0,p1_b1",Include a clause specifying any auto-renewal terms and provide advance notice before renewals.
+R005,Unbalanced indemnification terms not addressing employee liability,3,"p1_b0,p2_b2,p3_b1",Include balanced indemnification clauses that outline both company and employee liabilities.

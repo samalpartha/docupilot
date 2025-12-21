@@ -27,8 +27,11 @@ DocuPilot is an intelligent multi-agent system that automates document intake, a
 
 ### 1. Application of the Model ⭐
 
-- **PaddleOCR-VL**: Layout-aware extraction preserves document structure (tables, sections, headers)
-- **ERNIE**: Powers long-form reasoning, synthesis, and evidence linking across 5 specialized agents
+- **PaddleOCR-VL Integration**:
+  - We leverage the **Perception-Reasoning Decoupling** pattern.
+  - **Perception**: Uses `PPStructure` (the layout engine underlying PaddleOCR-VL) to extract visual blocks, tables, and coordinates.
+  - **Reasoning**: Uses `ERNIE 4.0` agents to process these blocks.
+  - **Why this is better**: Unlike a "black box" VLM which yields an answer, this split architecture provides **Block-Level Traceability**, allowing the `Verifier Agent` to audit every claim against a specific visual region (`[p1_b2]`).
 - **CAMEL-AI Framework**: True multi-agent orchestration with role separation and shared memory
 
 ### 2. Potential Impact 💡
