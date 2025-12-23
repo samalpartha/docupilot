@@ -30,7 +30,7 @@
 
 3.  **Run UI**:
     ```bash
-    streamlit run src/app.py
+    streamlit run src/DocuPilot_Home.py
     ```
     Access at: `http://localhost:8501`
 

@@ -105,13 +105,11 @@ st.markdown("""
 
 # --- SIDEBAR ---
 with st.sidebar:
-    st.markdown("<div style='font-size: 60px; text-align: center;'>⚖️</div>", unsafe_allow_html=True)
-    st.markdown("### DocuPilot")
-    st.caption("Multi-agent legal risk analysis")
-    
-    st.markdown("---")
-    
-    st.markdown("**Analysis Configuration**")
+    st.markdown("# 🦅 DocuPilot")
+    st.caption("Multimodal Agentic System")
+    st.divider()
+
+    st.markdown("### ⚙️ Settings")
     
     # Domain Selection
     domain = st.selectbox(
@@ -127,6 +125,10 @@ with st.sidebar:
         help="Select the governing law to contextualize the AI's risk assessment."
     )
     
+    st.divider()
+    st.markdown("[🛡️ **Open QA Dashboard**](/QA_Dashboard)")
+    st.caption("View Test Coverage metrics")
+
     # Legal Resources Logic
     JURISDICTION_RESOURCES = {
         "Federal (USA)": [
@@ -268,35 +270,6 @@ elif 'active_example' in st.session_state:
     st.session_state['fetched_file'] = None # Clear URL file
     st.info(f"👉 **Example Loaded:** {display_name}")
 
-# Feature Cards (Empty State)
-if final_file_payload is None:
-    st.markdown("<br>", unsafe_allow_html=True)
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-        st.markdown("""
-        <div class="feature-card">
-            <div class="feature-title">📋 Structure Extraction</div>
-            <div class="feature-desc">Automatically parse document hierarchy, sections, and layout using PaddleOCR-VL.</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with col2:
-        st.markdown("""
-        <div class="feature-card">
-            <div class="feature-title">👥 Party Identification</div>
-            <div class="feature-desc">Identify all parties, roles, and relationships within the legal context using Agentic Reasoning.</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with col3:
-        st.markdown("""
-        <div class="feature-card">
-            <div class="feature-title">⚠️ Risk Assessment</div>
-            <div class="feature-desc">Multi-agent analysis for comprehensive risk scoring, severity verification, and mitigation.</div>
-        </div>
-        """, unsafe_allow_html=True)
-    st.markdown("---")
 
 
 # --- ANALYSIS EXECUTION ---

@@ -10,7 +10,7 @@ def start_app():
     
     # NOVITA NATIVE PORT IS 8000
     streamlit_process = subprocess.Popen(
-        [sys.executable, "-m", "streamlit", "run", "src/app.py", "--server.port", "8000", "--server.address", "0.0.0.0", "--server.headless", "true"],
+        [sys.executable, "-m", "streamlit", "run", "src/DocuPilot_Home.py", "--server.port", "8000", "--server.address", "0.0.0.0", "--server.headless", "true"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
     )

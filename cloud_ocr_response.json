@@ -1,5 +1,5 @@
 {
-  "logId": "68ce1900-131b-4f09-8132-06f3b69e5064",
+  "logId": "58681f75-485c-4082-b8a2-45b47e4b7fbb",
   "result": {
     "layoutParsingResults": [
       {
@@ -249,10 +249,10 @@
           "images": {}
         },
         "outputImages": {
-          "layout_det_res": "https://pplines-online.bj.bcebos.com/deploy/official/paddleocr/pp-ocr-vl//68ce1900-131b-4f09-8132-06f3b69e5064/layout_det_res_0.jpg?authorization=bce-auth-v1%2FALTAKzReLNvew3ySINYJ0fuAMN%2F2025-12-23T02%3A26%3A23Z%2F-1%2F%2F35ac04893b4b3367e620bbc96f7ce94eddfb3a2f363e95b60334aec5aa563d3b",
-          "layout_order_res": "https://pplines-online.bj.bcebos.com/deploy/official/paddleocr/pp-ocr-vl//68ce1900-131b-4f09-8132-06f3b69e5064/layout_order_res_0.jpg?authorization=bce-auth-v1%2FALTAKzReLNvew3ySINYJ0fuAMN%2F2025-12-23T02%3A26%3A23Z%2F-1%2F%2F689ba44e26ef4a2a2212d979bca3ad5f0876678bff68039248c3c9216ebf1a8a"
+          "layout_det_res": "https://pplines-online.bj.bcebos.com/deploy/official/paddleocr/pp-ocr-vl//58681f75-485c-4082-b8a2-45b47e4b7fbb/layout_det_res_0.jpg?authorization=bce-auth-v1%2FALTAKzReLNvew3ySINYJ0fuAMN%2F2025-12-23T11%3A45%3A34Z%2F-1%2F%2F23f367807590ec44858392287eab745bd504c5b035b81c353f933fbe81277726",
+          "layout_order_res": "https://pplines-online.bj.bcebos.com/deploy/official/paddleocr/pp-ocr-vl//58681f75-485c-4082-b8a2-45b47e4b7fbb/layout_order_res_0.jpg?authorization=bce-auth-v1%2FALTAKzReLNvew3ySINYJ0fuAMN%2F2025-12-23T11%3A45%3A34Z%2F-1%2F%2F7c2cfc853f66505f082528cbc5fead6a0936ac4d2ee77f5294ebfb8cce51d7ec"
         },
-        "inputImage": "https://pplines-online.bj.bcebos.com/deploy/official/paddleocr/pp-ocr-vl//68ce1900-131b-4f09-8132-06f3b69e5064/input_img_0.jpg?authorization=bce-auth-v1%2FALTAKzReLNvew3ySINYJ0fuAMN%2F2025-12-23T02%3A26%3A23Z%2F-1%2F%2Fbef1404a9a8da1000fb90a61d11baa0a6bd37a23b89d84cabe8b4e6ee7e685c0"
+        "inputImage": "https://pplines-online.bj.bcebos.com/deploy/official/paddleocr/pp-ocr-vl//58681f75-485c-4082-b8a2-45b47e4b7fbb/input_img_0.jpg?authorization=bce-auth-v1%2FALTAKzReLNvew3ySINYJ0fuAMN%2F2025-12-23T11%3A45%3A34Z%2F-1%2F%2Fb8e630579f61dc0b47cedb78f9489c7cf72ec4567dd21eaa5b05a5ee1a668a6b"
       }
     ],
     "dataInfo": {
@@ -266,7 +266,7 @@
       "type": "pdf"
     },
     "preprocessedImages": [
-      "https://pplines-online.bj.bcebos.com/deploy/official/paddleocr/pp-ocr-vl//68ce1900-131b-4f09-8132-06f3b69e5064/preprocessed_img_0.jpg?authorization=bce-auth-v1%2FALTAKzReLNvew3ySINYJ0fuAMN%2F2025-12-23T02%3A26%3A23Z%2F-1%2F%2F47af54fde41d421e8a077434404b36dc33e662f4dfb4628c52ba97b7ca97aec4"
+      "https://pplines-online.bj.bcebos.com/deploy/official/paddleocr/pp-ocr-vl//58681f75-485c-4082-b8a2-45b47e4b7fbb/preprocessed_img_0.jpg?authorization=bce-auth-v1%2FALTAKzReLNvew3ySINYJ0fuAMN%2F2025-12-23T11%3A45%3A34Z%2F-1%2F%2Fe3db2405d69af69f7061a41385c0caf7e8fbe93b03af8c0fcd464e26131d988c"
     ]
   },
   "errorCode": 0,
