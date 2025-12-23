@@ -46,10 +46,14 @@ class AnalystAgent(BaseAgent):
             f"You are a strict data extraction engine. You MUST output VALID JSON only.\n"
             f"Do not include any conversational text, preamble, or markdown formatting (like ```json).\n"
             f"Just return the raw JSON object.\n\n"
-            f"REQUIRED JSON STRUCTURE:\n"
+            f"REQUIRED JSON STRUCTURE (Strict): \n"
             f"{{\n"
             f"  'document_type': 'string',\n"
+            f"  'court': 'string (context/jurisdiction)',\n"
+            f"  'posture': 'string (procedural status)',\n"
             f"  'parties': [ 'list of strings or objects' ],\n"
+            f"  'relief': [ 'list of clauses or remedies' ],\n"
+            f"  'findings': 'string (summary of key terms)',\n"
             f"  'dates': {{ 'key': 'value' }},\n"
             f"  'obligations': [ 'list of strings' ],\n"
             f"  'financials': [ 'list of strings' ]\n"
@@ -57,36 +61,114 @@ class AnalystAgent(BaseAgent):
             f"{hint_str}\n\n"
             f"Text:\n{text}"
         )
-        return self.run(prompt)
+        response = self.run(prompt)
+        
+        # Robust Parsing
+        try:
+            # Clean string
+            json_str = response.strip()
+            
+            # Handle Markdown Code Blocks
+            if "```" in json_str:
+                import re
+                pattern = r"```(?:json)?\s*(.*?)\s*```"
+                match = re.search(pattern, json_str, re.DOTALL | re.IGNORECASE)
+                if match:
+                     json_str = match.group(1)
+            
+            return json.loads(json_str)
+        except Exception as e:
+            logger.error(f"Failed to parse Analyst JSON: {e}")
+            return {} 
 
     def aggregate(self, partial_results):
         """
-        Uses the LLM to merge multiple partial JSON extractions into a single master record.
+        Aggregates partial JSON extractions using deterministic Python logic 
+        (safer and cheaper than LLM).
         """
-        # Serialize the partial results into a string for the prompt
-        context = json.dumps(partial_results, indent=2)
-        prompt = (
-            "You are an expert Data Consolidator.\n"
-            "I have multiple partial extractions from a single document.\n"
-            "Your task is to MERGE them into a single, deduplicated Master Record.\n\n"
-            "Rules:\n"
-            "1. Combine 'entities' list (deduplicate).\n"
-            "2. Merge 'obligations' and 'financials'.\n"
-            "3. Determine the single best 'document_type'.\n"
-            "4. OUTPUT ONLY JSON with keys: 'document_type', 'entities', 'dates', 'obligations', 'financials'.\n\n"
-            f"Partial Results:\n{context}"
-        )
+        master_record = {
+            "document_type": "Unknown",
+            "court": "N/A",
+            "posture": "N/A",
+            "parties": [],
+            "relief": [],
+            "findings": "N/A",
+            "dates": {},
+            "obligations": [],
+            "financials": []
+        }
         
-        response = self.run(prompt)
-        try:
-            # Clean potential markdown
-            cleaned = response.strip()
-            if cleaned.startswith("```json"):
-                cleaned = cleaned[7:]
-            if cleaned.endswith("```"):
-                cleaned = cleaned[:-3]
-            return json.loads(cleaned.strip())
-        except Exception as e:
-            logger.error(f"Failed to aggregate JSON: {e}")
-            # Fallback: validation failed, return the first one or empty
-            return partial_results[0] if partial_results else {}
+        doc_types = []
+        courts = []
+        postures = []
+        findings_list = []
+        
+        for p in partial_results:
+            # 1. Document Type (Voting)
+            dt = p.get('document_type')
+            if dt and dt not in ["N/A", "Unknown", "string"]:
+                doc_types.append(dt)
+            
+            # 1b. Court / Context (Voting)
+            c = p.get('court')
+            if c and c not in ["N/A", "Unknown", "string"]:
+                courts.append(c)
+
+            # 1c. Posture (Voting)
+            pos = p.get('posture')
+            if pos and pos not in ["N/A", "Unknown", "string"]:
+                postures.append(pos)
+                
+            # 1d. Findings (Concatenate)
+            find = p.get('findings')
+            if find and find not in ["N/A", "Unknown", "string"]:
+                findings_list.append(find)
+
+            # 2. Parties / Entities (Merge & Dedup)
+            # Handle both keys for robustness
+            p_list = p.get('parties') or p.get('entities') or []
+            if isinstance(p_list, list):
+                for item in p_list:
+                    if item and item not in master_record['parties']:
+                        master_record['parties'].append(item)
+                        
+            # 3. Obligations
+            o_list = p.get('obligations') or []
+            if isinstance(o_list, list):
+                 for item in o_list:
+                    if item and item not in master_record['obligations']:
+                        master_record['obligations'].append(item)
+            
+            # 3b. Relief / Clauses
+            r_list = p.get('relief') or []
+            if isinstance(r_list, list):
+                 for item in r_list:
+                    if item and item not in master_record['relief']:
+                        master_record['relief'].append(item)
+                        
+            # 4. Financials
+            f_list = p.get('financials') or []
+            if isinstance(f_list, list):
+                 for item in f_list:
+                    if item and item not in master_record['financials']:
+                        master_record['financials'].append(item)
+                        
+            # 5. Dates (Merge Dicts)
+            d_dict = p.get('dates') or {}
+            if isinstance(d_dict, dict):
+                master_record['dates'].update(d_dict)
+                
+        # Finalize Single Value Fields (Most Frequent)
+        from collections import Counter
+        if doc_types:
+            master_record['document_type'] = Counter(doc_types).most_common(1)[0][0]
+        if courts:
+            master_record['court'] = Counter(courts).most_common(1)[0][0]
+        if postures:
+            master_record['posture'] = Counter(postures).most_common(1)[0][0]
+        if findings_list:
+            # Join findings into a summary blob
+            master_record['findings'] = "; ".join(findings_list[:3]) # Limit to top 3 chunks to avoid spam
+            
+        logger.info(f"✅ Aggregated {len(partial_results)} chunks into Master Record.")
+        return master_record
