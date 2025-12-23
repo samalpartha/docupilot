@@ -31,8 +31,11 @@ def parse_agent_json(json_str):
     if not json_str:
         return None
     
+    if isinstance(json_str, (dict, list)):
+        return json_str
+
     # Clean string
-    json_str = json_str.strip()
+    json_str = str(json_str).strip()
     
     # Handle Markdown Code Blocks (common from LLMs)
     if "```" in json_str:
