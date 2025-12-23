@@ -7,6 +7,7 @@ camel-ai>=0.1.5
 
 # OCR and Document Processing
 paddleocr>=2.7.0
+opencv-python-headless>=4.8.0 # Critical for headless cloud servers
 paddlepaddle>=2.5.0
 Pillow>=10.0.0
 pypdfium2>=4.0.0
