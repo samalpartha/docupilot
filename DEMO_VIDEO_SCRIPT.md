@@ -10,7 +10,7 @@
 > "That's why we built **DocuPilot**. It's a **Multimodal Agentic System** powered by **Baidu AI Studio** that bridges Computer Vision and Reasoning."
 
 ## 0:20 - 0:40: The Dashboard (Screen Share)
-*   **Action**: Show `localhost:8501` (or your Cloud URL).
+*   **Action**: Show `https://docu-pilot.streamlit.app/` (Live Demo).
 *   **Visual**: Point to the Sidebar.
 > "Here is the DocuPilot Command Center. We verify against specific jurisdictions—like California or New York—because a risk in NY might be fine in CA."
 *   **Action**: Select **"California"** in the sidebar.

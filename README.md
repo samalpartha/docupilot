@@ -3,6 +3,7 @@
 **DocuPilot** is an advanced Multimodal AI System designed to analyze complex legal and financial documents (NDAs, MSAs, Invoices) with human-level precision. It bridges the gap between **Computer Vision** (PaddleOCR) and **Reasoning** (ERNIE-4.0 via Baidu AI Studio), creating a verifiable Multi-Agent workflow.
 
 > 🏆 **Hackathon Submission**: Best ERNIE Multimodal Application using Baidu AI Studio API
+> 🚀 **Live Demo**: [https://docu-pilot.streamlit.app/](https://docu-pilot.streamlit.app/)
 
 ## ✨ Key Features
 
