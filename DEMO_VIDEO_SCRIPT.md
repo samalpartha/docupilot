@@ -6,8 +6,8 @@
 ---
 
 ## 0:00 - 0:20: The "Hook" (Face to Camera)
-> "Legal teams waste 40% of their time manually reviewing agreements for basic risks. Generative AI helps, but lawyers don't trust it because it hallucinates."
-> "That's why we built **DocuPilot**. It's not a chatbot. It's a **Verified Multi-Agent Risk Engine** that links every finding back to the raw evidence."
+> "Legal teams waste 40% of their time manually reviewing agreements. But traditional OCR fails on complex layouts, and standard LLMs hallucinate."
+> "That's why we built **DocuPilot**. It's a **Multimodal Agentic System** powered by **Baidu AI Studio** that bridges Computer Vision and Reasoning."
 
 ## 0:20 - 0:40: The Dashboard (Screen Share)
 *   **Action**: Show `localhost:8501` (or your Cloud URL).
@@ -15,14 +15,13 @@
 > "Here is the DocuPilot Command Center. We verify against specific jurisdictions—like California or New York—because a risk in NY might be fine in CA."
 *   **Action**: Select **"California"** in the sidebar.
 
-## 0:40 - 1:30: Real-Time Ingestion (The "Magic")
+## 0:40 - 1:30: Multimodal Ingestion (The "Magic")
 *   **Action**: Click **"🔒 NDA (Confidentiality)"** under Quick Start (or Upload a PDF).
 *   **Visual**: Watch the Progress Bar & Status Text.
-> "Watch what happens. We don't just dump text into GPT. We run a multi-stage pipeline:"
-> 1.  "First, **PaddleOCR** (our Perception Layer) extracts the physical layout."
-> 2.  "Then, the **Ingestion Agent** cleans the OCR noise."
-> 3.  "Next, the **Analyst Agent** extracts structured facts—Parties, Dates, Obligations."
-> 4.  "Finally, the **Risk Agent** audits the contract."
+> "Watch what happens. This is a true **Multimodal Pipeline**:"
+> 1.  "First, **PaddleOCR** serves as our 'Eyes', extracting the physical layout and visual structure."
+> 2.  "Then, we stream this visual context to **ERNIE-4.0** (via **Baidu AI Studio**), our reasoning engine."
+> 3.  "The **Analyst Agent** extracts structured facts, while the **Risk Agent** audits the contract."
 
 ## 1:30 - 2:10: Trust & Traceability
 *   **Action**: Click the **"🔍 Data Traceability"** Tab.
