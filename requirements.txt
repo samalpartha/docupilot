@@ -22,6 +22,7 @@ rapidfuzz>=3.0.0 # Fast fuzzy string matching
 # Web and API
 requests>=2.31.0
 httpx>=0.25.0
+pyngrok>=7.0.0 # for remote tunneling
 
 # Utilities
 click>=8.1.0  # CLI framework
