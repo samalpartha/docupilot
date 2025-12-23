@@ -107,10 +107,10 @@ def run_pipeline(evidence, status_callback=None):
     logger.info("✅ Verifier Agent working...")
     update_status("✅ Verifier Agent: Auditing citations...")
     # Verify the Summary against the Evidence
-    # Use a safe slice of text for verification to avoid token limits
-    # Use the structured analysis as evidence (since summary is derived from it)
-    # This ensures consistency and avoids "missing evidence" issues from raw text truncation.
-    verifier_evidence = analysis_text[:10000] 
+    # Use the RAW FULL TEXT as evidence for verification.
+    # This ensures the Verifier checks against the actual document content,
+    # not just the potentially flawed/empty analysis JSON.
+    verifier_evidence = full_text[:15000] # Safe slice for context window
     verification_report = verifier.verify(summary_result, verifier_evidence)
     
     # Combine into Report
@@ -128,10 +128,11 @@ def run_pipeline(evidence, status_callback=None):
 See `Identified Risks` tab for the verified Risk Register.
 """
 
-    return {
-        'report': final_report,
-        'risks': risk_result,
-        'analysis': analysis_result,
+    results = {
+        "analysis": analysis_result,
+        "risks": risk_result,
+        "report": final_report,
         'verification': verification_report,
         'cleaned_evidence': cleaned_evidence
     }
+    return results

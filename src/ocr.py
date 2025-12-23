@@ -19,7 +19,6 @@ from loguru import logger
 
 # PaddleOCR integration is now handled via docupilot.models.ocr_paddle
 # which uses pypdfium2 for robust PDF rendering.
-from docupilot.models.ocr_paddle import PaddleOCRExtractor
 
 def extract_document(pdf_path):
     """Extract structured blocks from PDF using PaddleOCR.
@@ -77,12 +76,18 @@ def extract_document(pdf_path):
         
         if Config.CLOUD_OCR_ENABLED:
             logger.info(f"☁️ Using Baidu Cloud OCR for {pdf_path}...")
-            from docupilot.models.ocr_cloud import CloudOCRExtractor
+            try:
+                from src.docupilot.models.ocr_cloud import CloudOCRExtractor
+            except ImportError:
+                from docupilot.models.ocr_cloud import CloudOCRExtractor
             extractor = CloudOCRExtractor()
             blocks = extractor.extract_pdf(pdf_path)
         else:
             logger.info(f"Running reliable PaddleOCR (Local) on {pdf_path}...")
-            from docupilot.models.ocr_paddle import PaddleOCRExtractor
+            try:
+                from src.docupilot.models.ocr_paddle import PaddleOCRExtractor
+            except ImportError:
+                from docupilot.models.ocr_paddle import PaddleOCRExtractor
             extractor = PaddleOCRExtractor()
             blocks = extractor.extract_pdf(pdf_path)
         

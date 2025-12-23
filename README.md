@@ -1,35 +1,56 @@
-# DocuPilot
+# 🦅 DocuPilot: Agentic Document Intelligence
 
-DocuPilot is a multi-agent document processing system that:
-- Extracts text from PDFs using PaddleOCR (robust OCR; swap in PaddleOCR-VL if available)
-- Normalizes extracted text into structured JSON using ERNIE (LLM)
-- Analyzes risks using specialized agents coordinated in a CAMEL-style multi-agent loop
-- Produces a comprehensive report with category scores and actionable findings
+**DocuPilot** is an advanced Multi-Agent System designed to analyze complex legal and financial documents (NDAs, MSAs, Invoices) with human-level precision. It combines high-fidelity **PaddleOCR** with the reasoning power of **ERNIE-4.0**, orchestrated by a specialized agent team.
 
-## Quick start
+## ✨ Key Features
 
-### 1) Install
-```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -U pip
-pip install -e .
-```
+*   **🤖 Multi-Agent Architecture**:
+    *   **Ingestion Agent**: Clean structural OCR and layout analysis.
+    *   **Analyst Agent**: Extracts "Parties", "Key Dates", "Obligations" into strict JSON.
+    *   **Risk Agent**: Identifies Regulatory, Financial, and Legal risks (High/Medium/Low).
+    *   **Verifier Agent**: Cross-checks summary claims against raw evidence (Hallucination prevention).
+*   **👁️ Hybrid VLM Pipeline**: Decoupled Perception (PaddleOCR) and Reasoning (LLM) for full traceability.
+*   **⚡ GPU Acceleration**: Optimized for Novita.ai / Baidu Cloud instances.
+*   **🌐 Public Access**: Auto-tunneling via Serveo for instant cloud demos.
 
-### 2) Configure
+## 🚀 Quick Start (Local)
 
-Copy `.env.example` to `.env` and set:
+1.  **Install**:
+    ```bash
+    python3 -m venv venv && source venv/bin/activate
+    pip install -r requirements.txt
+    ```
 
-* ERNIE_API_KEY
-* ERNIE_BASE_URL (optional depending on your gateway/provider)
-* ERNIE_MODEL (optional)
+2.  **Configure**:
+    *   Copy `.env.example` to `.env`
+    *   Set `ERNIE_API_KEY` and `ERNIE_SECRET_KEY`.
 
-### 3) Run
+3.  **Run UI**:
+    ```bash
+    streamlit run src/app.py
+    ```
+    Access at: `http://localhost:8501`
 
-```bash
-python -m docupilot.main --pdf path/to/msa.pdf --out out/report.json
-```
+## ☁️ Cloud Deployment (Novita.ai)
 
-## Notes
+DocuPilot is optimized for GPU Cloud Instances.
 
-* If your environment has PaddleOCR-VL specifically, update `models/ocr_paddle.py` to use it.
-* ERNIE integration is implemented via a thin HTTP adapter (provider-agnostic).
+1.  **Setup**:
+    ```bash
+    git clone ... && cd docupilot
+    ./setup_env.sh  # Installs system dependencies (GL, Poppler, etc.)
+    ```
+
+2.  **Launch**:
+    ```bash
+    python3 start_remote.py
+    ```
+    *   **Automated**: Binds to Port 8000.
+    *   **Public Tunnel**: Automatically generates a `https://....serveo.net` link for external access.
+
+## 🛠️ Tech Stack
+
+*   **Backend**: Python 3.12, LangChain (Custom Agents)
+*   **AI/LLM**: ERNIE-4.0 (via Baidu Qianfan)
+*   **OCR**: PaddleOCR (GPU-Enabled) + PyMuPDF
+*   **Frontend**: Streamlit

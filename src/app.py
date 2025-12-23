@@ -393,7 +393,8 @@ if final_file_payload is not None:
                 )
             else:
                 st.info("✅ No High-Severity risks identified in this pass.")
-                if risks_data: st.json(risks_data) # Show raw if it's weird structure
+                with st.expander("🛠️ Debug: Raw Risk Data"):
+                     st.write(risks_data)
 
         # 3. Data Traceability
         with tab_trace:
@@ -438,8 +439,11 @@ if final_file_payload is not None:
                     court_val = data.get('court', {})
                     st.info(f"**Context:**\n\n{get_safe_text(court_val)}")
                     
-                    # Parties
-                    parties = data.get('parties', {})
+                    start_debug = st.expander("🛠️ Debug: Raw Agent Output", expanded=False)
+                    start_debug.json(data)
+
+                    # Parties (Fallback to 'entities')
+                    parties = data.get('parties') or data.get('entities') or {}
                     party_text = ""
                     
                     if isinstance(parties, dict):
