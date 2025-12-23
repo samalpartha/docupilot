@@ -37,10 +37,10 @@ def start_app():
         if not line:
             break
         print(f"Tunnel Log: {line.strip()}")
-        if "serveo.net" in line:
+        if "Forwarding HTTP traffic" in line:
             # Extract URL
             # Example output: "Forwarding HTTP traffic from https://somename.serveo.net"
-            match = re.search(r'(https?://[a-zA-Z0-9.-]+\.serveo\.net)', line)
+            match = re.search(r'(https?://[a-zA-Z0-9.-]+(?:\.serveo\.net|\.serveousercontent\.com))', line)
             if match:
                 public_url = match.group(1)
                 print("\n" + "="*60)
