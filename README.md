@@ -16,6 +16,43 @@
 *   **⚡ GPU Acceleration**: Optimized for Novita.ai / Baidu Cloud instances.
 *   **🌐 Public Access**: Auto-tunneling via Serveo for instant cloud demos.
 
+## 🏗️ System Architecture
+
+```mermaid
+graph TD
+    User([👤 User]) -->|Upload PDF| UI[🖥️ Streamlit UI]
+    UI -->|Raw Bytes| OCR[👁️ Perception Layer<br/>(PaddleOCR)]
+    
+    subgraph "Main Protocol"
+        OCR -->|Layout & Text blocks| Normalizer[Describe & Structure<br/>(Evidence Store)]
+        Normalizer --> Orch{🤖 Orchestrator}
+        
+        Orch -->|Chunks| Analyst[🕵️ Analyst  Agent<br/>(Entity Extraction)]
+        Orch -->|Clauses| Risk[⚠️ Risk Agent<br/>(Compliance Check)]
+        
+        Analyst -->|JSON| Aggregator[Reducer / Merger]
+        Risk -->|Risks| Aggregator
+        
+        Aggregator --> Summary[📝 Summarizer Agent]
+        Summary -->|Draft| Verifier[🛡️ Verifier Agent<br/>(Anti-Hallucination)]
+        
+        Verifier -->|Checked Report| Final[JSON Report]
+    end
+    
+    Final --> UI
+    
+    subgraph "External AI"
+        Analyst <-->|API| ERNIE[🧠 Baidu ERNIE-4.0]
+        Risk <-->|API| ERNIE
+        Summary <-->|API| ERNIE
+        Verifier <-->|API| ERNIE
+    end
+    
+    style ERNIE fill:#f9f,stroke:#333
+    style UI fill:#aff,stroke:#333
+    style OCR fill:#faa,stroke:#333
+```
+
 ## 🚀 Quick Start (Local)
 
 1.  **Install**:
