@@ -41,7 +41,23 @@ class AnalystAgent(BaseAgent):
         if rule_hints:
             hint_str = f"\n\n[SYSTEM HINT: Deterministic rules found the following potential data. Use this to double-check your extraction but verify context: {json.dumps(rule_hints, indent=2)}]"
         
-        return self.run(f"Extract structured data. OUTPUT JSON with keys: 'document_type', 'entities', 'dates', 'obligations', 'financials'.{hint_str}\n\nText:\n{text}")
+        prompt = (
+            f"Extract structured data from the text below.\n"
+            f"You are a strict data extraction engine. You MUST output VALID JSON only.\n"
+            f"Do not include any conversational text, preamble, or markdown formatting (like ```json).\n"
+            f"Just return the raw JSON object.\n\n"
+            f"REQUIRED JSON STRUCTURE:\n"
+            f"{{\n"
+            f"  'document_type': 'string',\n"
+            f"  'entities': [ 'list of strings or objects' ],\n"
+            f"  'dates': {{ 'key': 'value' }},\n"
+            f"  'obligations': [ 'list of strings' ],\n"
+            f"  'financials': [ 'list of strings' ]\n"
+            f"}}\n\n"
+            f"{hint_str}\n\n"
+            f"Text:\n{text}"
+        )
+        return self.run(prompt)
 
     def aggregate(self, partial_results):
         """

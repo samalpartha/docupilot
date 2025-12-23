@@ -31,17 +31,30 @@ def parse_agent_json(json_str):
     if not json_str:
         return None
     
+    # Clean string
+    json_str = json_str.strip()
+    
+    # Handle Markdown Code Blocks (common from LLMs)
+    if "```" in json_str:
+        # Extract content inside the first code block
+        pattern = r"```(?:json)?\s*(.*?)\s*```"
+        match = re.search(pattern, json_str, re.DOTALL | re.IGNORECASE)
+        if match:
+             json_str = match.group(1)
+             
     # 1. Try clean load
     try:
         return json.loads(json_str)
     except:
         pass
     
-    # 2. Try Regex Extraction
+    # 2. Try identifying the first outer bracket pair
     try:
-        match = re.search(r'\{.*\}', json_str, re.DOTALL)
-        if match:
-            return json.loads(match.group(0))
+        start = json_str.find('{')
+        end = json_str.rfind('}')
+        if start != -1 and end != -1 and end > start:
+            candidate = json_str[start:end+1]
+            return json.loads(candidate)
     except:
         pass
         
