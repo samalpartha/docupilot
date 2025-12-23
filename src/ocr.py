@@ -17,12 +17,9 @@ from loguru import logger
 # to allow for "Traceability" (linking generated text back to specific bbox coordinates),
 # which creates a "Verifiable VLM" architecture.
 
-try:
-    from paddleocr import PPStructure
-    PADDLE_AVAILABLE = True
-except ImportError:
-    PADDLE_AVAILABLE = False
-    logger.warning("PaddleOCR not found. Install with `pip install paddleocr`")
+# PaddleOCR integration is now handled via docupilot.models.ocr_paddle
+# which uses pypdfium2 for robust PDF rendering.
+from docupilot.models.ocr_paddle import PaddleOCRExtractor
 
 def extract_document(pdf_path):
     """Extract structured blocks from PDF using PaddleOCR.
@@ -40,52 +37,65 @@ def extract_document(pdf_path):
     #    return _mock_extraction(pdf_path)
 
     try:
-        # Initialize PPStructure for layout analysis
-        # recovery=True helps with rotated text
-        table_engine = PPStructure(show_log=False, recovery=True, lang='en')
-
-        # Run OCR
-        logger.info(f"Running PaddleOCR on {pdf_path}...")
-        result = table_engine(pdf_path)
-        
+        # FAST PATH: Try Native Text Extraction First (PyMuPDF)
+        # This is 100x faster than OCR and more accurate for digital PDFs.
+        import fitz
+        doc = fitz.open(pdf_path)
         blocks = []
-        # Result is a list of results per page
-        for page_idx, page in enumerate(result, 1):
-            for item_idx, item in enumerate(page):
-                # item structure varies, usually has 'res' (text/bbox) and 'type'
-                res = item.get('res')
-                text = ""
-                bbox = []
+        total_text_len = 0
+        
+        for page_idx, page in enumerate(doc, 1):
+            # get_text("blocks") returns (x0, y0, x1, y1, text, block_no, block_type)
+            page_blocks = page.get_text("blocks")
+            
+            for b_idx, b in enumerate(page_blocks):
+                x0, y0, x1, y1, text, block_no, block_type = b
+                if block_type != 0: continue # Skip images for text pass
                 
-                if isinstance(res, dict):
-                    text = res.get('text', '')
-                    bbox = res.get('bbox', [])
-                elif isinstance(res, list):
-                    # Sometimes res is a list of text/score tuples?
-                    # PPStructure usually returns a dict in 'res' for 'type': 'text'
-                    # For tables, it might be HTML.
-                    # Let's try to extract text safely.
-                    text = str(res)
-                else:
-                    text = str(res)
-
-                # Assign a unique ID: p{page}_b{index}
-                block_id = f"p{page_idx}_b{item_idx}"
+                clean_text = text.strip()
+                if not clean_text: continue
                 
+                total_text_len += len(clean_text)
                 blocks.append({
-                    'block_id': block_id,
+                    'block_id': f"p{page_idx}_b{b_idx}",
                     'page': page_idx,
-                    'type': item.get('type', 'text'),
-                    'text': text,
-                    'bbox': bbox,
-                    'img': item.get('img') # Keep reference if needed, though we won't serialize it
+                    'type': 'text',
+                    'text': clean_text,
+                    'bbox': [x0, y0, x1, y1]
                 })
-                
+        
+        # If we found substantial text, return it immediately (Skip Slow OCR)
+        if total_text_len > 100:
+            logger.info(f"⚡️ Fast-Track: Extracted {len(blocks)} text blocks using PyMuPDF (Native).")
+            return blocks
+        
+        logger.info("Meaningful text not found in PDF metadata. Falling back to PaddleOCR...")
+        # ... proceed to OCR below ...
+
+        # Run OCR via the reliable wrapper in docupilot.models
+        from src.config import Config
+        
+        if Config.CLOUD_OCR_ENABLED:
+            logger.info(f"☁️ Using Baidu Cloud OCR for {pdf_path}...")
+            from docupilot.models.ocr_cloud import CloudOCRExtractor
+            extractor = CloudOCRExtractor()
+            blocks = extractor.extract_pdf(pdf_path)
+        else:
+            logger.info(f"Running reliable PaddleOCR (Local) on {pdf_path}...")
+            from docupilot.models.ocr_paddle import PaddleOCRExtractor
+            extractor = PaddleOCRExtractor()
+            blocks = extractor.extract_pdf(pdf_path)
+        
         logger.info(f"Extracted {len(blocks)} blocks from {pdf_path}")
         return blocks
+
+    except Exception as e:
+        logger.warning(f"Extraction failed: {e}")
+        logger.info("⚠️ Falling back to high-fidelity OCR simulation for demo...")
+        return _mock_extraction(pdf_path)
         
     except Exception as e:
-        logger.warning(f"PaddleOCR failed/missing: {e}")
+        logger.warning(f"Extraction failed: {e}")
         logger.info("⚠️ Falling back to high-fidelity OCR simulation for demo...")
         return _mock_extraction(pdf_path)
 

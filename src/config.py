@@ -18,6 +18,11 @@ class Config:
     PADDLE_OCR_LANG = os.getenv('PADDLE_OCR_LANG', 'en')
     PADDLE_OCR_USE_GPU = os.getenv('PADDLE_OCR_USE_GPU', 'false').lower() == 'true'
     
+    # Cloud OCR Configuration (Baidu)
+    CLOUD_OCR_ENABLED = os.getenv('CLOUD_OCR_ENABLED', 'false').lower() == 'true'
+    CLOUD_OCR_URL = os.getenv('CLOUD_OCR_URL', "https://g49fgd0070pda7k8.aistudio-app.com/layout-parsing")
+    CLOUD_OCR_TOKEN = os.getenv('CLOUD_OCR_TOKEN', '')
+    
     # CAMEL AI Configuration
     CAMEL_MODEL_TYPE = os.getenv('CAMEL_MODEL_TYPE', 'ernie')
     CAMEL_MAX_ITERATIONS = int(os.getenv('CAMEL_MAX_ITERATIONS', '5'))

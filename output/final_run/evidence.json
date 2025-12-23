@@ -1,0 +1,74 @@
+[
+  {
+    "id": "p1_b0",
+    "page": 1,
+    "text": "MASTER SERVICES AGREEMENT",
+    "type": "text"
+  },
+  {
+    "id": "p1_b1",
+    "page": 1,
+    "text": "This Master Services Agreement ('Agreement') is entered into between:",
+    "type": "text"
+  },
+  {
+    "id": "p1_b2",
+    "page": 1,
+    "text": "CLIENT INC and VENDOR LLC.",
+    "type": "text"
+  },
+  {
+    "id": "p1_b3",
+    "page": 1,
+    "text": "SECTION 1: SERVICES",
+    "type": "text"
+  },
+  {
+    "id": "p1_b4",
+    "page": 1,
+    "text": "Vendor agrees to provide software development services as described in SOWs.",
+    "type": "text"
+  },
+  {
+    "id": "p1_b5",
+    "page": 1,
+    "text": "SECTION 8: LIMITATION OF LIABILITY",
+    "type": "text"
+  },
+  {
+    "id": "p1_b6",
+    "page": 1,
+    "text": "8.1 Cap on Damages. IN NO EVENT SHALL PROVIDER'S AGGREGATE LIABILITY",
+    "type": "text"
+  },
+  {
+    "id": "p1_b7",
+    "page": 1,
+    "text": "ARISING OUT OF THIS AGREEMENT EXCEED THE TOTAL FEES PAID BY CLIENT",
+    "type": "text"
+  },
+  {
+    "id": "p1_b8",
+    "page": 1,
+    "text": "IN THE THREE (3) MONTHS PRECEDING THE CLAIM. THIS IS A LOW CAP.",
+    "type": "text"
+  },
+  {
+    "id": "p1_b9",
+    "page": 1,
+    "text": "SECTION 12: TERM AND TERMINATION",
+    "type": "text"
+  },
+  {
+    "id": "p1_b10",
+    "page": 1,
+    "text": "12.2 Auto-Renewal. This Agreement shall automatically renew for successive periods",
+    "type": "text"
+  },
+  {
+    "id": "p1_b11",
+    "page": 1,
+    "text": "of five (5) years unless Client provides written notice at least 180 days prior.",
+    "type": "text"
+  }
+]

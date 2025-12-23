@@ -11,8 +11,14 @@ class RiskAgent(BaseAgent):
         prompt_path = Path(__file__).parent / 'prompts' / 'risk.txt'
         self.set_system_prompt(prompt_path.read_text())
 
-    def assess_risk(self, analysis_text):
-        response = self.run(f"Based on this analysis, generate a risk register:\n\n{analysis_text}")
+    def assess_risk(self, analysis_text, role=None):
+        if role:
+            # specialized role injection
+            prompt = f"As a {role}, review this analysis and identify risks strictly within your domain:\n\n{analysis_text}"
+        else:
+            prompt = f"Based on this analysis, generate a risk register:\n\n{analysis_text}"
+            
+        response = self.run(prompt)
         try:
             # Clean potential markdown
             cleaned = response.strip()

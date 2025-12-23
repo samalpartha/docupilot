@@ -477,3 +477,31 @@ if final_file_payload is not None:
                          if findings_text.lower() != 'not found':
                              st.markdown("**Reasoning / Additional Terms:**")
                              st.caption(findings_text)
+
+        # 4. Financial Verification (NEW)
+        # Check if we have financial data in the result
+        try:
+            # We look for "Programmatic Financial Verification" in the report text
+            # Or checks in the 'analysis' JSON if we forwarded them
+            
+            # Since VerifierAgent appends the verification note to the report string:
+            report_text = results.get('report', '')
+            if "### 🛡️ Programmatic Financial Verification" in report_text:
+                with st.expander("💰 Financial Integrity Check", expanded=True):
+                    # Extract the section
+                    verification_section = report_text.split("### 🛡️ Programmatic Financial Verification")[1]
+                    # Stop at next header if any (unlikely since it's at end)
+                    
+                    if "✅ **PASSED**" in verification_section:
+                        st.success("✅ **Math Verified**: All financial totals (Line Items, Tax, Grand Total) are mathematically consistent.")
+                        st.markdown(verification_section)
+                    elif "❌ **FAILED**" in verification_section:
+                        st.error("❌ **Math Error**: Inconsistencies detected in the invoice totals.")
+                        st.markdown(verification_section)
+                    else:
+                        st.info("ℹ️ Financial data extracted, but could not fully verify.")
+                        st.markdown(verification_section)
+                        
+        except Exception:
+            pass
+

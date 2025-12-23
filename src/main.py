@@ -7,14 +7,15 @@ from pathlib import Path
 from loguru import logger
 from dotenv import load_dotenv
 
+# Load env before importing local modules that might read env vars at top-level
+load_dotenv()
+
 # Ensure we can import from src
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.ocr import extract_document
 from src.normalize import create_evidence_store
 from src.agents.orchestrator import run_pipeline
-
-load_dotenv()
 
 @click.command()
 @click.option('--pdf', required=True, type=click.Path(exists=True), help='Path to PDF file')

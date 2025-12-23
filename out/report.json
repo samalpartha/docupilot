@@ -1,0 +1,84 @@
+{
+  "generated_at": "2025-12-23T01:27:19.824573Z",
+  "document_type": "Court Order",
+  "parties": [
+    {
+      "name": "Plaintiff",
+      "role": "Plaintiff"
+    },
+    {
+      "name": "Defendant",
+      "role": "Defendant"
+    }
+  ],
+  "effective_date": "2024-01-01",
+  "term": null,
+  "risk": {
+    "category_scores": {
+      "compliance": 40,
+      "financial": 60,
+      "operational": 50
+    },
+    "overall_risk_score": 50,
+    "findings": [
+      {
+        "category": "compliance",
+        "title": "Audit rights not explicit",
+        "severity": 40,
+        "rationale": "No clear audit clause detected; may be missing or not captured by OCR.",
+        "evidence": [],
+        "recommendation": "Confirm audit rights, frequency, scope, and cost allocation."
+      },
+      {
+        "category": "financial",
+        "title": "Payment terms unclear",
+        "severity": 60,
+        "rationale": "Payment schedule and invoicing mechanics were not detected.",
+        "evidence": [],
+        "recommendation": "Add explicit payment schedule, invoice timing, and acceptance criteria."
+      },
+      {
+        "category": "operational",
+        "title": "Service levels not defined",
+        "severity": 50,
+        "rationale": "No SLA or service level terms detected; operational expectations may be ambiguous.",
+        "evidence": [],
+        "recommendation": "Define uptime targets, incident response times, and remedies."
+      }
+    ]
+  },
+  "actionable_summary": {
+    "top_findings": [
+      {
+        "category": "financial",
+        "title": "Payment terms unclear",
+        "severity": 60,
+        "rationale": "Payment schedule and invoicing mechanics were not detected.",
+        "evidence": [],
+        "recommendation": "Add explicit payment schedule, invoice timing, and acceptance criteria."
+      },
+      {
+        "category": "operational",
+        "title": "Service levels not defined",
+        "severity": 50,
+        "rationale": "No SLA or service level terms detected; operational expectations may be ambiguous.",
+        "evidence": [],
+        "recommendation": "Define uptime targets, incident response times, and remedies."
+      },
+      {
+        "category": "compliance",
+        "title": "Audit rights not explicit",
+        "severity": 40,
+        "rationale": "No clear audit clause detected; may be missing or not captured by OCR.",
+        "evidence": [],
+        "recommendation": "Confirm audit rights, frequency, scope, and cost allocation."
+      }
+    ],
+    "next_steps": [
+      "Validate missing or weak clauses flagged by Legal and Compliance agents.",
+      "Confirm data protection and confidentiality coverage if any gaps were detected.",
+      "Align operational terms (SLA, termination, transition) to delivery needs.",
+      "Re-run after redaction/clean OCR if confidence is low."
+    ]
+  }
+}

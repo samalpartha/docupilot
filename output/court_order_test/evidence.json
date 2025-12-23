@@ -1,0 +1,80 @@
+[
+  {
+    "id": "p1_b0",
+    "page": 1,
+    "text": "UNITED STATES DISTRICT COURT SOUTHERN DISTRICT OF NEW YORK",
+    "type": "text"
+  },
+  {
+    "id": "p1_b1",
+    "page": 1,
+    "text": "ACME CORP.,",
+    "type": "text"
+  },
+  {
+    "id": "p1_b2",
+    "page": 1,
+    "text": "Plaintiff,",
+    "type": "text"
+  },
+  {
+    "id": "p1_b4",
+    "page": 1,
+    "text": "TECHVENDOR INC.,",
+    "type": "text"
+  },
+  {
+    "id": "p1_b5",
+    "page": 1,
+    "text": "Defendant.",
+    "type": "text"
+  },
+  {
+    "id": "p1_b6",
+    "page": 1,
+    "text": "Civil Action No. 24-CV-12345 (JSD)",
+    "type": "text"
+  },
+  {
+    "id": "p1_b7",
+    "page": 1,
+    "text": "ORDER GRANTING MOTION FOR SUMMARY JUDGMENT",
+    "type": "text"
+  },
+  {
+    "id": "p1_b8",
+    "page": 1,
+    "text": "J. DOE, District Judge:",
+    "type": "text"
+  },
+  {
+    "id": "p1_b9",
+    "page": 1,
+    "text": "This matter comes before the Court on Plaintiff Acme Corp.'s Motion for Summary Judgment. The Court having reviewed the pleadings, affidavits, and exhibits, finds as follows:",
+    "type": "text"
+  },
+  {
+    "id": "p1_b10",
+    "page": 1,
+    "text": "1. FINDINGS OF FACT The Court finds that on January 1, 2024, Defendant failed to deliver the software modules as required by the Master Services Agreement (MSA), Section 4.2. Defendant's argument that the delay was due to 'Force Majeure' is rejected as the server outage cited does not meet the contractual definition in Clause 12.",
+    "type": "text"
+  },
+  {
+    "id": "p1_b11",
+    "page": 1,
+    "text": "2. CONCLUSIONS OF LAW Under New York Law, a material breach of a time-is-of-the-essence clause entitles the non-breaching party to immediate termination. The liability cap of $50,000 asserted by Defendant is found to be unenforceable due to gross negligence found in the handling of customer data.",
+    "type": "text"
+  },
+  {
+    "id": "p1_b12",
+    "page": 1,
+    "text": "3. ORDER It is hereby ORDERED AND ADJUDGED that: A. Plaintiff's Motion for Summary Judgment is GRANTED. B. Defendant shall pay damages in the amount of $450,000 within 30 days. C. Failure to comply may result in further sanctions. D. This case is DISMISSED WITH PREJUDICE.",
+    "type": "text"
+  },
+  {
+    "id": "p1_b13",
+    "page": 1,
+    "text": "SO ORDERED. Dated: December 21, 2025 New York, New York",
+    "type": "text"
+  }
+]
