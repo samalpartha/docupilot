@@ -20,8 +20,8 @@ def start_app():
 
     print("\n" + "="*60)
     print("  ✅ APP FULLY STARTED ON PORT 8000")
-    print("  👉 GO TO NOVITA DASHBOARD (Web Browser)")
-    print("  👉 Click the button: 'Connect to HTTP Service [Port 8000]'")
+    print("  👉 LOCAL ACCESS: http://localhost:8000  (Click here if running on Mac)")
+    print("  👉 CLOUD ACCESS: Novita Dashboard -> 'Connect to HTTP Service [Port 8000]'")
     print("="*60 + "\n")
 
     print("🔗 Creating Backup Public Tunnel (via Serveo)...")
