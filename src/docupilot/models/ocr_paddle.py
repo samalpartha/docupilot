@@ -10,8 +10,20 @@ class PaddleOCRExtractor:
     def __init__(self, lang: str = "en"):
         # Initialize PaddleOCR
         # Use GPU if valid in Config
-        use_gpu = Config.PADDLE_OCR_USE_GPU
-        print(f"DEBUG: Initializing PaddleOCR (use_gpu={use_gpu})")
+        print(f"DEBUG: Initializing PaddleOCR (Config.PADDLE_OCR_USE_GPU={Config.PADDLE_OCR_USE_GPU})")
+        
+        # Explicitly check and print
+        if Config.PADDLE_OCR_USE_GPU:
+             print("\n" + "="*50)
+             print("  🚀 OCR ENGINE: GPU ACCELERATION ENABLED! (FAST MODE)")
+             print("="*50 + "\n")
+             use_gpu = True
+        else:
+             print("\n" + "="*50)
+             print("  🐢 OCR ENGINE: CPU MODE (SLOW MODE)")
+             print("     Set PADDLE_OCR_USE_GPU=true to enable acceleration.")
+             print("="*50 + "\n")
+             use_gpu = False
         
         self.ocr = PaddleOCR(
             use_angle_cls=True,
