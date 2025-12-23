@@ -49,7 +49,7 @@ class AnalystAgent(BaseAgent):
             f"REQUIRED JSON STRUCTURE:\n"
             f"{{\n"
             f"  'document_type': 'string',\n"
-            f"  'entities': [ 'list of strings or objects' ],\n"
+            f"  'parties': [ 'list of strings or objects' ],\n"
             f"  'dates': {{ 'key': 'value' }},\n"
             f"  'obligations': [ 'list of strings' ],\n"
             f"  'financials': [ 'list of strings' ]\n"

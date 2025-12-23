@@ -16,7 +16,13 @@ class RiskAgent(BaseAgent):
             # specialized role injection
             prompt = f"As a {role}, review this analysis and identify risks strictly within your domain:\n\n{analysis_text}"
         else:
-            prompt = f"Based on this analysis, generate a risk register:\n\n{analysis_text}"
+            prompt = (
+                f"Based on this analysis, generate a strict JSON risk register.\n"
+                f"Output MUST be a JSON object with key 'risks' containing a list of objects.\n"
+                f"Each object must have keys: 'risk', 'severity' (1-10), 'mitigation', 'evidence_block_ids' (list of strings).\n"
+                f"No markdown, no conversation. JUST JSON.\n\n"
+                f"Analysis:\n{analysis_text}"
+            )
             
         response = self.run(prompt)
         try:
