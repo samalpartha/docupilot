@@ -6,9 +6,9 @@ import re
 
 def start_app():
     # 1. Start Streamlit in the background
-    print("🚀 Starting Streamlit App...")
+    print(f"🚀 Starting Streamlit App via {sys.executable}...")
     streamlit_process = subprocess.Popen(
-        ["streamlit", "run", "src/app.py", "--server.port", "8501", "--server.headless", "true"],
+        [sys.executable, "-m", "streamlit", "run", "src/app.py", "--server.port", "8501", "--server.headless", "true"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
     )
