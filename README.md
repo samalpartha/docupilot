@@ -1,6 +1,8 @@
-# 🦅 DocuPilot: Agentic Document Intelligence
+# 🦅 DocuPilot: Multimodal Agentic Document Intelligence
 
-**DocuPilot** is an advanced Multi-Agent System designed to analyze complex legal and financial documents (NDAs, MSAs, Invoices) with human-level precision. It combines high-fidelity **PaddleOCR** with the reasoning power of **ERNIE-4.0**, orchestrated by a specialized agent team.
+**DocuPilot** is an advanced Multimodal AI System designed to analyze complex legal and financial documents (NDAs, MSAs, Invoices) with human-level precision. It bridges the gap between **Computer Vision** (PaddleOCR) and **Reasoning** (ERNIE-4.0 via Baidu AI Studio), creating a verifiable Multi-Agent workflow.
+
+> 🏆 **Hackathon Submission**: Best ERNIE Multimodal Application using Baidu AI Studio API
 
 ## ✨ Key Features
 
@@ -51,6 +53,6 @@ DocuPilot is optimized for GPU Cloud Instances.
 ## 🛠️ Tech Stack
 
 *   **Backend**: Python 3.12, LangChain (Custom Agents)
-*   **AI/LLM**: ERNIE-4.0 (via Baidu Qianfan)
-*   **OCR**: PaddleOCR (GPU-Enabled) + PyMuPDF
+*   **AI/LLM**: ERNIE-4.0 (via **Baidu AI Studio API**)
+*   **OCR**: PaddleOCR (Vision Layer)
 *   **Frontend**: Streamlit
